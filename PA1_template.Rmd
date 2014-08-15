@@ -75,8 +75,19 @@ replacing missing data with estimated values caused the mean and median to incre
 ## Are there differences in activity patterns between weekdays and weekends?
 
 
-For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part.
+include weekdy/weekend info in the dataset
+```{r}
+weekdata <- extdata
+weekdata$daytype <- as.factor(ifelse(((weekdays(weekdata$date) == "Sunday")+(weekdays(weekdata$date) == "Saturday")) == 1, "weekend", "weekday"))
+```
 
-Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+compared activity profile between weekdays and weekends
+```{r}
+timedataweekdays <- tapply(weekdata$steps[weekdata$daytype=="weekday"], weekdata$interval[weekdata$daytype=="weekday"], mean)
+timedataweekends <- tapply(weekdata$steps[weekdata$daytype=="weekend"], weekdata$interval[weekdata$daytype=="weekend"], mean)
+par(mfrow = c(2,1))
+plot(timedataweekdays, type="l", main="weekdays activity", xlab="time interval", ylab="number of steps", xaxt='n'); axis(1, labels = c('0:00', '4:10', '08:20', '12:30', '16:40', '20:50'), at = c(0, 50, 100, 150, 200, 250))
+plot(timedataweekends, type="l", main="weekends activity", xlab="time interval", ylab="number of steps", xaxt='n'); axis(1, labels = c('0:00', '4:10', '08:20', '12:30', '16:40', '20:50'), at = c(0, 50, 100, 150, 200, 250))
 
-Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). The plot should look something like the following, which was creating using simulated data:
+```
+
