@@ -29,7 +29,7 @@ median(sumdataNONA)
 the activity pattern
 ```{r}
 # compute total number of steps for each time interval 
-timedata <- tapply(data$steps, data$interval, sum, na.rm=TRUE)
+timedata <- tapply(data$steps, data$interval, mean, na.rm=TRUE)
 plot(timedata, type="l", xlab="time interval", ylab="number of steps", xaxt='n'); axis(1, labels = c('0:00', '4:10', '08:20', '12:30', '16:40', '20:50'), at = c(0, 50, 100, 150, 200, 250))
 ```
 
@@ -43,15 +43,34 @@ on average across all the days in the dataset, it is the `r maxstepinterval` int
 
 ## Imputing missing values
 
-Note that there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
-
-Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
-
-Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+```{r}
+missingvaluescount <- sum(is.na(data$steps))
+```
+there are `r missingvaluescount` rows with missing values in the dataset
+for each row where a value is missing, the number of steps used will  be the mean for the corresponding interval
 
 Create a new dataset that is equal to the original dataset but with the missing data filled in.
+```{r}
+reptimedata <- rep(timedata, 61)
+extdata <- data
+extdata$steps <- ifelse(is.na(extdata$steps), reptimedata, extdata$steps)
+```
 
-Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+
+with data corrected as mentioned above (NA values replaced by the mean for the corresponding interval),  
+the histogram of total steps per day, the mean and the median are as follows.
+```{r}
+# compute total number of steps for each day
+extsumdata <- tapply(extdata$steps, extdata$date, sum, na.rm=TRUE)
+# display histogram
+hist(extsumdata, main="histogram of total steps per day", xlab="total steps")
+#report mean
+mean(extsumdata)
+#report median
+median(extsumdata)
+```
+replacing missing data with estimated values caused the mean and median to increase.
+
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
