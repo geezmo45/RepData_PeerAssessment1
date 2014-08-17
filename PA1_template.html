@@ -114,7 +114,7 @@ median(extsumdata)</code></pre>
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 <p>include weekdy/weekend info in the dataset</p>
 <pre class="r"><code>weekdata &lt;- extdata
-weekdata$daytype &lt;- as.factor(ifelse(((weekdays(weekdata$date) == &quot;Sunday&quot;)+(weekdays(weekdata$date) == &quot;Saturday&quot;)) == 1, &quot;weekend&quot;, &quot;weekday&quot;))</code></pre>
+weekdata$daytype &lt;- as.factor(ifelse(weekdays(weekdata$date) %in% c(&quot;Sunday&quot;, &quot;Saturday&quot;), &quot;weekend&quot;, &quot;weekday&quot;))</code></pre>
 <p>compared activity profile between weekdays and weekends</p>
 <pre class="r"><code>timedataweekdays &lt;- tapply(weekdata$steps[weekdata$daytype==&quot;weekday&quot;], weekdata$interval[weekdata$daytype==&quot;weekday&quot;], mean)
 timedataweekends &lt;- tapply(weekdata$steps[weekdata$daytype==&quot;weekend&quot;], weekdata$interval[weekdata$daytype==&quot;weekend&quot;], mean)

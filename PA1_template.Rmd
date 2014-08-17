@@ -78,7 +78,8 @@ replacing missing data with estimated values caused the mean and median to incre
 include weekdy/weekend info in the dataset
 ```{r}
 weekdata <- extdata
-weekdata$daytype <- as.factor(ifelse(((weekdays(weekdata$date) == "Sunday")+(weekdays(weekdata$date) == "Saturday")) == 1, "weekend", "weekday"))
+weekdata$daytype <- as.factor(ifelse(weekdays(weekdata$date) %in% c("Sunday", "Saturday"), "weekend", "weekday"))
+
 ```
 
 compared activity profile between weekdays and weekends
