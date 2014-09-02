@@ -37,6 +37,7 @@ The interval with the maximum number of steps
 ```{r}
 maxstepcount <- timedata[timedata == max(timedata)]
 maxstepinterval <- names(timedata[timedata == max(timedata)])
+#report max step interval
 maxstepinterval
 ```
 on average across all the days in the dataset, it is the `r maxstepinterval` interval that contains the maximum number of steps  (with `r maxstepcount` steps)

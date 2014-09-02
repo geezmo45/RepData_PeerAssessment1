@@ -86,6 +86,7 @@ plot(timedata, type=&quot;l&quot;, xlab=&quot;time interval&quot;, ylab=&quot;nu
 <p>The interval with the maximum number of steps</p>
 <pre class="r"><code>maxstepcount &lt;- timedata[timedata == max(timedata)]
 maxstepinterval &lt;- names(timedata[timedata == max(timedata)])
+#report max step interval
 maxstepinterval</code></pre>
 <pre><code>## [1] &quot;835&quot;</code></pre>
 <p>on average across all the days in the dataset, it is the 835 interval that contains the maximum number of steps (with 206.1698 steps)</p>
