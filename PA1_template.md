@@ -19,7 +19,7 @@ a histogram of the total number of steps taken per day, followed by the correspo
 # compute total number of steps for each day
 sumdataNONA <- tapply(data$steps, data$date, sum, na.rm=TRUE)
 # display histogram
-hist(sumdataNONA, main="histogram of total steps per day", xlab="total steps")
+hist(sumdataNONA, breaks=20, main="histogram of total steps per day", xlab="total steps")
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
@@ -59,6 +59,11 @@ The interval with the maximum number of steps
 ```r
 maxstepcount <- timedata[timedata == max(timedata)]
 maxstepinterval <- names(timedata[timedata == max(timedata)])
+maxstepinterval
+```
+
+```
+## [1] "835"
 ```
 on average across all the days in the dataset, it is the 835 interval that contains the maximum number of steps  (with 206.1698 steps)
 
@@ -88,7 +93,7 @@ the histogram of total steps per day, the mean and the median are as follows.
 # compute total number of steps for each day
 extsumdata <- tapply(extdata$steps, extdata$date, sum, na.rm=TRUE)
 # display histogram
-hist(extsumdata, main="histogram of total steps per day", xlab="total steps")
+hist(extsumdata, breaks=20, main="histogram of total steps per day", xlab="total steps")
 ```
 
 ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
