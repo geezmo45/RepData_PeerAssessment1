@@ -17,7 +17,7 @@ a histogram of the total number of steps taken per day, followed by the correspo
 
 ```r
 # compute total number of steps for each day
-sumdataNONA <- tapply(data$steps, data$date, sum, na.rm=TRUE)
+sumdataNONA <- tapply(data$steps[!is.na(data$steps)], data$date[!is.na(data$steps)], FUN=sum, na.rm=TRUE)
 # display histogram
 hist(sumdataNONA, breaks=20, main="histogram of total steps per day", xlab="total steps")
 ```
@@ -30,7 +30,7 @@ mean(sumdataNONA)
 ```
 
 ```
-## [1] 9354
+## [1] 10766
 ```
 
 ```r
@@ -39,7 +39,7 @@ median(sumdataNONA)
 ```
 
 ```
-## [1] 10395
+## [1] 10765
 ```
 
 ## What is the average daily activity pattern?
@@ -59,6 +59,7 @@ The interval with the maximum number of steps
 ```r
 maxstepcount <- timedata[timedata == max(timedata)]
 maxstepinterval <- names(timedata[timedata == max(timedata)])
+#report max step interval
 maxstepinterval
 ```
 
